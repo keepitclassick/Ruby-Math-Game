@@ -28,5 +28,12 @@ class Game
         end
       end
       puts "\n~~~~~~~~~~ Here we goooo! ~~~~~~~~~~"
+      next_turn
+    end
+  
+    # Starts the next turn, asking the current player a question
+  def next_turn
+    turn = Turn.new(1)
+    turn.ask_question
   end
 end
