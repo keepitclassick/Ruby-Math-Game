@@ -1,39 +1,56 @@
 class Game
+  # Create two Player objects, starting game with Player 1
   def initialize
-
+    @player_1 = Player.new(1)
+    @player_2 = Player.new(2)
+    @current_player = @player_1
   end
 
-  #instructions before game start
-  def start_game
-    puts "*************************"
-    puts "Are you ready to start the TwO-O-Player Math Game? Let's review the rules."
-    puts "*************************"
-    puts "Each player has 3 lives, and you lose a life\nwhen the answer is incorrect."
-    puts "~~~~~~~~~~~~"
-    puts "The game ends when either player loses all their lives."
-    puts "~~~~~~~~~~~~"
-    puts "If you're ready, type 'y' into the prompt to start the game.\n"
+  # Presents instructions before starting game
+  def begin
+    puts "~~~~~~~~~~~~~~~~~~~~~~~~~"
+    puts "Welcome to the Math Game!"
+    puts "~~~~~~~~~~~~~~~~~~~~~~~~~"
+    puts "Each player has 3 lives, and you lose a life\nwhen you answer a question incorrectly."
+    puts "----"
+    puts "When either one of the players runs out of\nlives, the game ends."
+    puts "----"
+    puts "If you're ready to start, type 'y' in the prompt"
     ask_to_start
   end
-    # Asks each player if they are ready to start
-    def ask_to_start
-      (1..2).each do |num|
-        puts "\nPlayer #{num}: Ready to start?"
+
+  # Asks each player if they are ready to start
+  def ask_to_start
+    (1..2).each do |id|
+      puts "\nPlayer #{id}: Ready to start?"
+      print "> "
+      answer = gets.chomp
+      # Keep asking until they answer "y"
+      while (answer != "y")
+        puts "Please type 'y' to start. Ready to start?"
         print "> "
         answer = gets.chomp
-        while (answer != "y")
-          puts "Please type 'y' to start. Ready to start?"
-          print "> "
-          answer = gets.chomp
-        end
       end
-      puts "\n~~~~~~~~~~ Here we goooo! ~~~~~~~~~~"
-      next_turn
     end
-  
-    # Starts the next turn, asking the current player a question
-  def next_turn
-    turn = Turn.new(1)
-    turn.ask_question
+    puts "\n~~~~~~~~~~ GAME STARTS NOW! ~~~~~~~~~~"
+    ask_question
+  end
+
+    # Asks the current player a question
+  def ask_question
+    question = Question.new
+    puts "\nPlayer 1: #{question.text}"
+
+    print "> "
+    player_answer = gets.chomp.to_i
+
+    # Checks to see if they answered correctly
+    if(player_answer == question.correct_answer)
+      puts "Player 1: YES! You are correct!"
+    else 
+      puts "Player 1: Seriously? No!"
+    end
+
+
   end
 end
